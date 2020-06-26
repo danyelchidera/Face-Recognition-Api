@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Face">
+    <Key>
+      <PropertyRef Name="FaceID" />
+    </Key>
+    <Property Name="FaceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FaceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SpecialNumber" Type="Int32" Nullable="false" />
+    <Property Name="RecNo" Type="Int32" Nullable="false" />
+    <Property Name="FaceImg" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Size" Type="Int32" Nullable="false" />
+    <Property Name="ImgID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Img" Relationship="Self.FK_Face_Img" FromRole="Face" ToRole="Img" />
+  </EntityType>
+  <EntityType Name="Img">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="ImgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ImageByte" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Size" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Faces" Relationship="Self.FK_Face_Img" FromRole="Img" ToRole="Face" />
+    <NavigationProperty Name="Unknowns" Relationship="Self.FK_Unknown_Img" FromRole="Img" ToRole="Unknown" />
+  </EntityType>
+  <EntityType Name="Unknown">
+    <Key>
+      <PropertyRef Name="UnknownID" />
+    </Key>
+    <Property Name="UnknownID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnknownFace" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ImgID" Type="Int32" Nullable="false" />
+    <Property Name="SpecialNumber" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Img" Relationship="Self.FK_Unknown_Img" FromRole="Unknown" ToRole="Img" />
+  </EntityType>
+  <Association Name="FK_Face_Img">
+    <End Role="Img" Type="Self.Img" Multiplicity="1" />
+    <End Role="Face" Type="Self.Face" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Img">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Face">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unknown_Img">
+    <End Role="Img" Type="Self.Img" Multiplicity="1" />
+    <End Role="Unknown" Type="Self.Unknown" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Img">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Unknown">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Faces" EntityType="Self.Face" />
+    <EntitySet Name="Imgs" EntityType="Self.Img" />
+    <EntitySet Name="Unknowns" EntityType="Self.Unknown" />
+    <AssociationSet Name="FK_Face_Img" Association="Self.FK_Face_Img">
+      <End Role="Img" EntitySet="Imgs" />
+      <End Role="Face" EntitySet="Faces" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unknown_Img" Association="Self.FK_Unknown_Img">
+      <End Role="Img" EntitySet="Imgs" />
+      <End Role="Unknown" EntitySet="Unknowns" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

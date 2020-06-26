@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjectModelStoreContainer" CdmEntityContainer="ProjectEntities">
+    <EntitySetMapping Name="Faces">
+      <EntityTypeMapping TypeName="ProjectModel.Face">
+        <MappingFragment StoreEntitySet="Face">
+          <ScalarProperty Name="FaceID" ColumnName="FaceID" />
+          <ScalarProperty Name="FaceName" ColumnName="FaceName" />
+          <ScalarProperty Name="SpecialNumber" ColumnName="SpecialNumber" />
+          <ScalarProperty Name="RecNo" ColumnName="RecNo" />
+          <ScalarProperty Name="FaceImg" ColumnName="FaceImg" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Imgs">
+      <EntityTypeMapping TypeName="ProjectModel.Img">
+        <MappingFragment StoreEntitySet="Img">
+          <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ImageByte" ColumnName="ImageByte" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Unknowns">
+      <EntityTypeMapping TypeName="ProjectModel.Unknown">
+        <MappingFragment StoreEntitySet="Unknown">
+          <ScalarProperty Name="UnknownID" ColumnName="UnknownID" />
+          <ScalarProperty Name="UnknownFace" ColumnName="UnknownFace" />
+          <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+          <ScalarProperty Name="SpecialNumber" ColumnName="SpecialNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

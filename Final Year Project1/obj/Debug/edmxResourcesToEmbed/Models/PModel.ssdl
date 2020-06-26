@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Face">
+    <Key>
+      <PropertyRef Name="FaceID" />
+    </Key>
+    <Property Name="FaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FaceName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpecialNumber" Type="int" Nullable="false" />
+    <Property Name="RecNo" Type="int" Nullable="false" />
+    <Property Name="FaceImg" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+    <Property Name="ImgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Img">
+    <Key>
+      <PropertyRef Name="ImgID" />
+    </Key>
+    <Property Name="ImgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Time" Type="datetime" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ImageByte" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unknown">
+    <Key>
+      <PropertyRef Name="UnknownID" />
+    </Key>
+    <Property Name="UnknownID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnknownFace" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ImgID" Type="int" Nullable="false" />
+    <Property Name="SpecialNumber" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Face_Img">
+    <End Role="Img" Type="Self.Img" Multiplicity="1" />
+    <End Role="Face" Type="Self.Face" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Img">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Face">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unknown_Img">
+    <End Role="Img" Type="Self.Img" Multiplicity="1" />
+    <End Role="Unknown" Type="Self.Unknown" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Img">
+        <PropertyRef Name="ImgID" />
+      </Principal>
+      <Dependent Role="Unknown">
+        <PropertyRef Name="ImgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjectModelStoreContainer">
+    <EntitySet Name="Face" EntityType="Self.Face" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Img" EntityType="Self.Img" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unknown" EntityType="Self.Unknown" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Face_Img" Association="Self.FK_Face_Img">
+      <End Role="Img" EntitySet="Img" />
+      <End Role="Face" EntitySet="Face" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unknown_Img" Association="Self.FK_Unknown_Img">
+      <End Role="Img" EntitySet="Img" />
+      <End Role="Unknown" EntitySet="Unknown" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,20 @@
+<form #form='ngForm' (submit)="onSubmit()">
+    <div class="main"> 
+     <p class="sign" align="center">Sign in</p>
+      <div class = 'form-group'>
+       <input class="un " #UserName="ngModel" name="UserName" [(ngModel)]="service.LoginForm.UserName" type="text" align="center" placeholder="Username">
+      </div>
+      <div class = 'form-group'>
+       <input class="pass" #Password="ngModel" name="Password" [(ngModel)]="service.LoginForm.Password" type="password" align="center" placeholder="Password">
+
+      </div>
+     
+           <button class="submit" align="center" [disabled]="form.invalid">Login</button>
+
+</div>
+    
+</form>
+{{service.LoginForm.UserName}}
+     
+                        
+   

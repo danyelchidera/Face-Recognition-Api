@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UploadsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Face">
+    <Key>
+      <PropertyRef Name="FaceID" />
+    </Key>
+    <Property Name="FaceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FaceName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="SpecialNumber" Type="int" Nullable="false" />
+    <Property Name="PictureID" Type="int" Nullable="false" />
+    <Property Name="FaceImage" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="PictureID" />
+    </Key>
+    <Property Name="PictureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FileBin" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Size" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Face_Face">
+    <End Role="Face" Type="Self.Face" Multiplicity="1" />
+    <End Role="Face1" Type="Self.Face" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Face">
+        <PropertyRef Name="FaceID" />
+      </Principal>
+      <Dependent Role="Face1">
+        <PropertyRef Name="FaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Face_Face1">
+    <End Role="Face" Type="Self.Face" Multiplicity="1" />
+    <End Role="Face1" Type="Self.Face" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Face">
+        <PropertyRef Name="FaceID" />
+      </Principal>
+      <Dependent Role="Face1">
+        <PropertyRef Name="FaceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Face_Image">
+    <End Role="Image" Type="Self.Image" Multiplicity="1" />
+    <End Role="Face" Type="Self.Face" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="PictureID" />
+      </Principal>
+      <Dependent Role="Face">
+        <PropertyRef Name="PictureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="UploadsModelStoreContainer">
+    <EntitySet Name="Face" EntityType="Self.Face" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Face_Face" Association="Self.FK_Face_Face">
+      <End Role="Face" EntitySet="Face" />
+      <End Role="Face1" EntitySet="Face" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Face_Face1" Association="Self.FK_Face_Face1">
+      <End Role="Face" EntitySet="Face" />
+      <End Role="Face1" EntitySet="Face" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Face_Image" Association="Self.FK_Face_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Face" EntitySet="Face" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
