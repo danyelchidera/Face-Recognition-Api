@@ -1,6 +1,7 @@
 # Title: Face Recognition App
 
-# Purpose: This app uses the endpoint 'api/image' is to receive image files from a particular user, store them and extract face features from them, 
+# Purpose: 
+This app uses the endpoint 'api/image' is to receive image files from a particular user, store them and extract face features from them, 
 ...then try to match those features with a dataset of faces stored in a db. If a match is sent, an email is sent to the user consuming the api. 
 ...In a situation where there are no matches. The unrecognised faces can be accessed through the user's dashboard, from where the user can choose to ...
 ... identify the faces with a any particular name.
